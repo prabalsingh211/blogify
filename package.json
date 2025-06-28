@@ -1,0 +1,32 @@
+{
+  "name": "blogify",
+  "version": "1.0.0",
+  "description": "A website to post blog",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prabalsingh211/blogify.git"
+  },
+  "author": "Prabal Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prabalsingh211/blogify/issues"
+  },
+  "homepage": "https://github.com/prabalsingh211/blogify#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.0.0",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.16.1",
+    "multer": "^2.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
