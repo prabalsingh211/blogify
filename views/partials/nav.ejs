@@ -1,6 +1,70 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<style>
+  .navbar-custom {
+    transition: background 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  body.light-mode .navbar-custom {
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+  }
+
+  body.dark-mode .navbar-custom {
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  }
+
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #fff !important;
+  }
+
+  .navbar-nav .nav-link {
+    color: #ffffffd9 !important;
+    font-weight: 500;
+    margin-left: 10px;
+    transition: color 0.3s;
+  }
+
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link.active {
+    color: #fff !important;
+    text-decoration: underline;
+  }
+
+  .dropdown-menu {
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.3s ease-in-out;
+    padding: 10px;
+    min-width: 200px;
+  }
+
+  .dropdown-item {
+    font-weight: 500;
+    color: #333;
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+
+  .dropdown-item:hover {
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    color: white;
+  }
+
+  .profile-pic {
+    width: 35px;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 2px solid #fff;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Blogify</a>
+    <a class="navbar-brand" href="/">Blogify</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -12,44 +76,71 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ms-auto align-items-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a
+            class="nav-link <% if (locals.active === 'home') { %>active<% } %>"
+            href="/home"
+            >Home</a
+          >
         </li>
-        <% if(locals.user ) { %>
+
+        <% if (locals.user) { %>
         <li class="nav-item">
-          <a class="nav-link" href="/blog/add-new">Add blog</a>
+          <a class="nav-link" href="/blog/add-new">Add Blog</a>
         </li>
+
         <li class="nav-item dropdown">
-          <a 
-            class="nav-link dropdown-toggle"
+          <a
+            class="nav-link dropdown-toggle d-flex align-items-center"
             href="#"
             role="button"
+            id="userDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            Prabal Singh
+            <% if (locals.user.profileImageURL) { %>
+            <img
+              src="<%= locals.user.profileImageURL %>"
+              alt="profile"
+              class="profile-pic"
+            />
+            <% } %>
+            <span><%= locals.user.fullName %></span>
           </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/user/logout">Log Out</a></li>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="userDropdown"
+          >
+            <li>
+              <a class="dropdown-item" href="/user/logout">
+                <i class="bi bi-box-arrow-right me-2"></i> Log Out
+              </a>
+            </li>
           </ul>
         </li>
-        <%} else {%>
+        <% } else { %>
         <li class="nav-item">
           <a class="nav-link" href="/user/signup">Create Account</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/user/signin">Signin</a>
+          <a class="nav-link" href="/user/signin">Sign In</a>
         </li>
         <% } %>
+
+        <!-- Theme toggle button -->
+        <li class="nav-item">
+          <button
+            class="theme-toggle btn"
+            id="themeToggle"
+            title="Toggle theme"
+          >
+            <i class="bi bi-brightness-high-fill"></i>
+          </button>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
-
-<% if (locals.error) { %>
-<div class="container mt-4">
-  <div class="alert alert-danger" role="alert"><%= locals.error %></div>
-</div>
-<% } %>

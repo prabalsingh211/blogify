@@ -9,6 +9,7 @@ const Blog = require("./models/blog");
 
 const userRoute = require("./routes/user");
 const blogRoute = require("./routes/blog");
+const welcomeRoute = require("./routes/welcome");
 const {
   checkForeAuthenticationCookie,
 } = require("./middlewares/authentication");
@@ -28,7 +29,13 @@ app.use(cookieParser());
 app.use(checkForeAuthenticationCookie("token"));
 app.use(express.static(path.resolve("./public")));
 
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
+  res.render("welcome", {
+    user: req.user,
+  });
+});
+
+app.get("/home", async (req, res) => {
   const allBlogs = await Blog.find({});
   res.render("home", {
     user: req.user,
@@ -36,6 +43,7 @@ app.get("/", async (req, res) => {
   });
 });
 
+// app.use("/welcome", welcomeRoute);
 app.use("/user", userRoute);
 app.use("/blog", blogRoute);
 

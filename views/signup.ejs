@@ -3,48 +3,147 @@
   <head>
     <%- include('./partials/head') %>
     <title>Signup</title>
+    <style>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        transition: background 0.3s ease;
+      }
+
+      body.light-mode {
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+      }
+
+      body.dark-mode {
+        background: linear-gradient(to right, #141e30, #243b55);
+      }
+
+      .main-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 56px); /* navbar height */
+        padding: 20px;
+      }
+
+      .signup-box {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 500px;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      body.dark-mode .signup-box {
+        background: #1e1e1e;
+        color: #eaeaea;
+      }
+
+      .signup-box h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: bold;
+        color: #333;
+      }
+
+      body.dark-mode .signup-box h2 {
+        color: #f1f1f1;
+      }
+
+      .form-label {
+        color: #333;
+      }
+
+      body.dark-mode .form-label {
+        color: #eaeaea;
+      }
+
+      .form-text {
+        color: #6c757d;
+      }
+
+      body.dark-mode .form-text {
+        color: #aaa;
+      }
+
+      .form-control {
+        background-color: #fff;
+        color: #000;
+      }
+
+      body.dark-mode .form-control {
+        background-color: #2c2c2c;
+        color: #fff;
+        border-color: #444;
+      }
+
+      .btn-primary {
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+        border: none;
+        width: 100%;
+        transition: background 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(to right, #00f2fe, #4facfe);
+      }
+
+      .alert {
+        margin-bottom: 20px;
+      }
+    </style>
   </head>
   <body>
     <%- include('./partials/nav') %>
 
-    <div class="container mt-4">
-      <form action="/user/signup" method="post">
-        <div class="mb-3">
-          <label for="fullName" class="form-label">Full Name</label>
-          <input
-            type="text"
-            class="form-control"
-            id="fullName"
-            name="fullName"
-            aria-describedby="fullName"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
-          <input
-            type="email"
-            name="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-          <div id="emailHelp" class="form-text">
-            We'll never share your email with anyone else.
+    <div class="main-wrapper">
+      <div class="signup-box">
+        <h2>Create Your Account</h2>
+
+        <% if (typeof error !== "undefined") { %>
+          <div class="alert alert-danger" role="alert"><%= error %></div>
+        <% } %>
+
+        <form action="/user/signup" method="post">
+          <div class="mb-3">
+            <label for="fullName" class="form-label">Full Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="fullName"
+              name="fullName"
+              required
+            />
           </div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            type="password"
-            name="password"
-            class="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              required
+            />
+            <div id="emailHelp" class="form-text">
+              We'll never share your email with anyone else.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-primary">Signup</button>
+        </form>
+      </div>
     </div>
 
     <%- include('./partials/scripts') %>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('./partials/head') %>
+    <title>Welcome</title>
+    <style>
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        transition: background 0.3s ease;
+      }
+
+      body.light-mode {
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+      }
+
+      body.dark-mode {
+        background: linear-gradient(to right, #141e30, #243b55);
+      }
+
+      .welcome-box {
+        margin-top: 80px;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        max-width: 600px;
+        width: 90%;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      body.dark-mode .welcome-box {
+        background: #1e1e1e;
+        color: #eaeaea;
+      }
+
+      .profile-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #00c6ff;
+        margin-bottom: 20px;
+      }
+
+      .welcome-box h1 {
+        font-weight: 700;
+        font-size: 2rem;
+        color: #333;
+      }
+
+      .welcome-box p {
+        font-size: 1.1rem;
+        color: #555;
+      }
+
+      body.dark-mode .welcome-box h1,
+      body.dark-mode .welcome-box p {
+        color: #e0e0e0;
+      }
+
+      @media (max-width: 576px) {
+        .welcome-box {
+          padding: 25px 20px;
+        }
+
+        .welcome-box h1 {
+          font-size: 1.5rem;
+        }
+
+        .welcome-box p {
+          font-size: 1rem;
+        }
+
+        .profile-image {
+          width: 80px;
+          height: 80px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('./partials/nav') %>
+
+    <div class="container d-flex justify-content-center align-items-center flex-grow-1">
+      <div class="welcome-box">
+        <% if (user?.profileImageURL) { %>
+        <img
+          src="<%= user.profileImageURL %>"
+          alt="Profile Image"
+          class="profile-image"
+        />
+        <% } %>
+        <h1>Welcome, <%= user?.fullName || "Guest" %>!</h1>
+        <p>“Start writing your story, one blog at a time.”</p>
+        <p>We're glad you're here. Let's inspire the world with your words 🌍✨</p>
+      </div>
+    </div>
+
+    <%- include('./partials/scripts') %>
+  </body>
+</html>

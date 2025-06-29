@@ -3,48 +3,143 @@
   <head>
     <%- include('./partials/head') %>
     <title>Add New Blog</title>
+    <style>
+      /* Backgrounds */
+      body.light-mode {
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+        color: #333;
+      }
+
+      body.dark-mode {
+        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+        color: #eee;
+      }
+
+      .main-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 15px;
+        min-height: calc(100vh - 56px); /* navbar height */
+      }
+
+      .form-box {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        max-width: 700px;
+        width: 100%;
+        transition: background 0.3s, color 0.3s;
+      }
+
+      body.dark-mode .form-box {
+        background-color: #1f1f1f;
+        color: #eee;
+      }
+
+      .form-box h2 {
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 25px;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: inherit;
+      }
+
+      .form-control {
+        background-color: #fff;
+        color: #000;
+      }
+
+      body.dark-mode .form-control {
+        background-color: #2b2b2b;
+        color: #fff;
+        border: 1px solid #555;
+      }
+
+      .btn-primary {
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+        border: none;
+        transition: background 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(to right, #00f2fe, #4facfe);
+      }
+
+      @media (max-width: 576px) {
+        .form-box {
+          padding: 20px;
+        }
+
+        .form-label {
+          font-size: 0.95rem;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
   <body>
     <%- include('./partials/nav') %>
 
-    <div class="container mt-3">
-      <form action="/blog" method="post" enctype="multipart/form-data">
-        <div class="mb-3">
-          <label for="coverImage" class="form-label">Cover Image</label>
-          <input
-            type="file"
-            class="form-control"
-            id="coverImage"
-            name="coverImage"
-            aria-describedby="coverImage"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="title"
-            name="title"
-            aria-describedby="title"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="body" class="form-label">Body</label>
-          <textarea
-            placeholder="Write your blog content here..."
-            class="form-control"
-            id="body"
-            name="body"
-            rows="5"
-          ></textarea>
-        </div>
-        <div class="mb-3">
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-      </form>
+    <div class="main-wrapper">
+      <div class="form-box">
+        <h2>📝 Create a New Blog</h2>
+
+        <form action="/blog" method="post" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="coverImage" class="form-label">Cover Image</label>
+            <input
+              type="file"
+              class="form-control"
+              id="coverImage"
+              name="coverImage"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="title"
+              name="title"
+              placeholder="Enter blog title"
+              required
+            />
+          </div>
+
+          <div class="mb-3">
+            <label for="body" class="form-label">Body</label>
+            <textarea
+              class="form-control"
+              id="body"
+              name="body"
+              rows="6"
+              placeholder="Write your blog content here..."
+              required
+            ></textarea>
+          </div>
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">📤 Submit Blog</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <%- include('./partials/scripts') %>
+    <script>
+      // Apply saved theme on load
+      const savedTheme = localStorage.getItem("theme") || "light";
+      document.body.classList.add(`${savedTheme}-mode`);
+    </script>
   </body>
 </html>

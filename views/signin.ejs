@@ -3,38 +3,140 @@
   <head>
     <%- include('./partials/head') %>
     <title>Signin</title>
+    <style>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        transition: background 0.3s ease;
+      }
+
+      body.light-mode {
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+      }
+
+      body.dark-mode {
+        background: linear-gradient(to right, #141e30, #243b55);
+      }
+
+      .main-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 56px);
+        padding: 20px;
+      }
+
+      .form-container {
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 450px;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      body.dark-mode .form-container {
+        background: #1e1e1e;
+        color: #eaeaea;
+      }
+
+      .form-title {
+        font-weight: bold;
+        margin-bottom: 25px;
+        text-align: center;
+        color: #333;
+      }
+
+      body.dark-mode .form-title {
+        color: #f1f1f1;
+      }
+
+      .form-label {
+        color: #333;
+      }
+
+      body.dark-mode .form-label {
+        color: #eaeaea;
+      }
+
+      .form-text {
+        color: #6c757d;
+      }
+
+      body.dark-mode .form-text {
+        color: #aaa;
+      }
+
+      .form-control {
+        background-color: #fff;
+        color: #000;
+      }
+
+      body.dark-mode .form-control {
+        background-color: #2c2c2c;
+        color: #fff;
+        border-color: #444;
+      }
+
+      .btn-primary {
+        background: linear-gradient(to right, #4facfe, #00f2fe);
+        border: none;
+        transition: background 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(to right, #00f2fe, #4facfe);
+      }
+
+      .alert {
+        margin-bottom: 20px;
+      }
+    </style>
   </head>
   <body>
     <%- include('./partials/nav') %>
 
-    <div class="container mt-4">
-      <form action="/user/signin" method="post">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
-          <input
-            type="email"
-            name="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-          />
-          <div id="emailHelp" class="form-text">
-            We'll never share your email with anyone else.
+    <div class="main-wrapper">
+      <div class="form-container">
+        <h2 class="form-title">Sign In to Blogify</h2>
+
+        <% if (typeof error !== 'undefined') { %>
+          <div class="alert alert-danger" role="alert">
+            <%= error %>
           </div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            type="password"
-            name="password"
-            class="form-control"
-            id="exampleInputPassword1"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
+        <% } %>
+
+        <form action="/user/signin" method="post">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              required
+            />
+            <div id="emailHelp" class="form-text">
+              We'll never share your email with anyone else.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input
+              type="password"
+              name="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              required
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+      </div>
     </div>
 
     <%- include('./partials/scripts') %>
