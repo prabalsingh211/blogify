@@ -36,5 +36,17 @@
       localStorage.setItem("theme", newTheme);
       applyTheme(newTheme);
     });
+
+    // Optional: Disable submit buttons after first click on any form
+    const forms = document.querySelectorAll("form");
+    forms.forEach(form => {
+      const submitBtn = form.querySelector("button[type='submit']");
+      if (submitBtn) {
+        form.addEventListener("submit", () => {
+          submitBtn.disabled = true;
+          submitBtn.innerText = "Submitting...";
+        });
+      }
+    });
   });
 </script>
